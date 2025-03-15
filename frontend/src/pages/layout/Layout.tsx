@@ -75,6 +75,7 @@ const Layout = () => {
 
   return (
     <div className={styles.layout}>
+    <div>Hola mundo</div>
       <header className={styles.header} role={'banner'}>
         <Stack horizontal verticalAlign="center" horizontalAlign="space-between">
           <Stack horizontal verticalAlign="center">
