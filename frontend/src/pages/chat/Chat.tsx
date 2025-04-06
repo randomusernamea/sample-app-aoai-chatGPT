@@ -68,7 +68,7 @@ const Chat = () => {
   const [errorMsg, setErrorMsg] = useState<ErrorMessage | null>()
   const [logo, setLogo] = useState('')
   const [answerId, setAnswerId] = useState<string>('')
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState<string>('');
 
   const errorDialogContentProps = {
     type: DialogType.close,
@@ -763,7 +763,7 @@ const Chat = () => {
 
   return (
     <div className={styles.container} role="main">
-      <UploadFileButton></UploadFileButton>
+      <UploadFileButton setUploadedFile={setUploadedFile}></UploadFileButton>
       {showAuthMessage ? (
         <Stack className={styles.chatEmptyState}>
           <ShieldLockRegular

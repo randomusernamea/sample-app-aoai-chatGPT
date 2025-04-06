@@ -1,14 +1,8 @@
 import React, { useState, useRef, ChangeEvent, FC, Dispatch, SetStateAction  } from 'react';
 
 interface UploadFileButtonProps {
-  setUploadedFile: (data: any) => void; // Replace 'any' with your response type
-}
-
-
-interface UploadFileButtonProps {
   setUploadedFile: Dispatch<SetStateAction<string>>;
 }
-
 
 export const UploadFileButton: FC<UploadFileButtonProps> = ({ setUploadedFile }: UploadFileButtonProps) => {
   const [buttonText, setButtonText] = useState<string>('Adjuntar archivo');
