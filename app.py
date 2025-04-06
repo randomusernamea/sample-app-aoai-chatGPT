@@ -588,6 +588,10 @@ async def conversation():
     return await conversation_internal(request_json, request.headers)
 
 
+@bp.route("/convertFile", methods=["POST"])
+async def convertChat(file):
+    return "" ##todo
+
 @bp.route("/frontend_settings", methods=["GET"])
 def get_frontend_settings():
     try:
