@@ -35,6 +35,7 @@ from backend.utils import (
     convert_to_pf_format,
     format_pf_non_streaming_response,
 )
+from markitdown import MarkItDown
 
 bp = Blueprint("routes", __name__, static_folder="static", template_folder="static")
 
@@ -590,7 +591,9 @@ async def conversation():
 
 @bp.route("/convertFile", methods=["POST"])
 async def convertChat(file):
-    return "" ##todo
+    md = MarkItDown(docintel_endpoint="<document_intelligence_endpoint>")
+    result = md.convert(file)
+    return result
 
 @bp.route("/frontend_settings", methods=["GET"])
 def get_frontend_settings():

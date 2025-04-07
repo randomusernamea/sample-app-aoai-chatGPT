@@ -26,7 +26,7 @@ export const UploadFileButton: FC<UploadFileButtonProps> = ({ setUploadedFile }:
     formData.append('file', file);
     setIsUploaded(true);
 
-    fetch('www.randomip.com', {
+    fetch('/convertFile', {
       method: 'POST',
       body: formData,
     })
