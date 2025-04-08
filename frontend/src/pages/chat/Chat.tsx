@@ -69,6 +69,7 @@ const Chat = () => {
   const [logo, setLogo] = useState('')
   const [answerId, setAnswerId] = useState<string>('')
   const [uploadedFile, setUploadedFile] = useState<string>('');
+  const [question, setQuestion] = useState<string>('')
 
   const errorDialogContentProps = {
     type: DialogType.close,
@@ -109,6 +110,10 @@ const Chat = () => {
       setErrorMsg(null)
     }, 500)
   }
+
+useEffect(()=> {
+  setQuestion(question + uploadedFile)
+},[uploadedFile])
 
   useEffect(() => {
     if (!appStateContext?.state.isLoading) {
@@ -948,7 +953,9 @@ const Chat = () => {
                 conversationId={
                   appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined
                 }
-              /> q
+                question={question}
+                setQuestion={setQuestion}
+              />
             </Stack>
           </div>
           {/* Citation Panel */}

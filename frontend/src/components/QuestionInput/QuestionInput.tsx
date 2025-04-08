@@ -15,10 +15,11 @@ interface Props {
   placeholder?: string
   clearOnSend?: boolean
   conversationId?: string
+  question: string;
+  setQuestion: (value: string) => void;
 }
 
-export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId }: Props) => {
-  const [question, setQuestion] = useState<string>('')
+export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId, question, setQuestion }: Props ) => {
   const [base64Image, setBase64Image] = useState<string | null>(null);
 
   const appStateContext = useContext(AppStateContext)
