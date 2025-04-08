@@ -18,4 +18,5 @@ dependencies:
     - azure-search-documents
     - azure-storage-blob
     - chardet
+    - markitdown[docx]
 
