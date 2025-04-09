@@ -37,6 +37,8 @@ export const UploadFileButton: FC<UploadFileButtonProps> = ({ setUploadedFile }:
       .then((data) => {
         setUploadedFile(data.texto);
         console.log('File uploaded successfully:', data);
+        setButtonText('¿Adjuntar otro?')
+        setIsUploaded(false);
       })
       .catch((error) => {
         console.error('Error uploading file:', error);
