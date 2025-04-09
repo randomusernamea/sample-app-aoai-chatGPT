@@ -25,6 +25,11 @@ export const UploadFileButton: FC<UploadFileButtonProps> = ({ setUploadedFile }:
   };
 
   const uploadFile = (file: File) => {
+    const extension = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase() || undefined;
+    if (!(extension === 'docx' || extension === 'txt' || extension === 'doc')){
+      alert('Solo se permiten archivos .doc, .docx y .txt!');
+      return;
+    }
     const formData = new FormData();
     formData.append('file', file);
     setIsUploaded(true);
