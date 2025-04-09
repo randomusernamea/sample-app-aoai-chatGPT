@@ -36,7 +36,7 @@ import {
 import { Answer } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
 import { ChatHistoryPanel } from "../../components/ChatHistory/ChatHistoryPanel";
-import { UploadFileButton } from "../../components/UploadFileButton/UploadFileButton";
+
 import { AppStateContext } from "../../state/AppProvider";
 
 
@@ -68,8 +68,7 @@ const Chat = () => {
   const [errorMsg, setErrorMsg] = useState<ErrorMessage | null>()
   const [logo, setLogo] = useState('')
   const [answerId, setAnswerId] = useState<string>('')
-  const [uploadedFile, setUploadedFile] = useState<string>('');
-  const [question, setQuestion] = useState<string>('')
+
 
   const errorDialogContentProps = {
     type: DialogType.close,
@@ -111,9 +110,7 @@ const Chat = () => {
     }, 500)
   }
 
-useEffect(()=> {
-  setQuestion(question + uploadedFile)
-},[uploadedFile])
+
 
   useEffect(() => {
     if (!appStateContext?.state.isLoading) {
@@ -768,7 +765,6 @@ useEffect(()=> {
 
   return (
     <div className={styles.container} role="main">
-      <UploadFileButton setUploadedFile={setUploadedFile}></UploadFileButton>
       {showAuthMessage ? (
         <Stack className={styles.chatEmptyState}>
           <ShieldLockRegular
@@ -941,21 +937,19 @@ useEffect(()=> {
                   dialogContentProps={errorDialogContentProps}
                   modalProps={modalProps}></Dialog>
               </Stack>
-              <QuestionInput
-                clearOnSend
-                placeholder="Type a new question"
-                disabled={isLoading}
-                onSend={(question, id) => {
-                  appStateContext?.state.isCosmosDBAvailable?.cosmosDB
-                    ? makeApiRequestWithCosmosDB(question, id)
-                    : makeApiRequestWithoutCosmosDB(question, id)
-                }}
-                conversationId={
-                  appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined
-                }
-                question={question}
-                setQuestion={setQuestion}
-              />
+                <QuestionInput
+                  clearOnSend
+                  placeholder="Type a new question"
+                  disabled={isLoading}
+                  onSend={(question, id) => {
+                    appStateContext?.state.isCosmosDBAvailable?.cosmosDB
+                      ? makeApiRequestWithCosmosDB(question, id)
+                      : makeApiRequestWithoutCosmosDB(question, id)
+                  }}
+                  conversationId={
+                    appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined
+                  }
+                />
             </Stack>
           </div>
           {/* Citation Panel */}

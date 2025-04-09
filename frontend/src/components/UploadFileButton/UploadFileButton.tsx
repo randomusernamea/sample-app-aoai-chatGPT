@@ -1,7 +1,10 @@
 import React, { useState, useRef, ChangeEvent, FC, Dispatch, SetStateAction  } from 'react';
+import './UploadFileButton.css'
+
 
 interface UploadFileButtonProps {
   setUploadedFile: Dispatch<SetStateAction<string>>;
+  className?: string;
 }
 
 export const UploadFileButton: FC<UploadFileButtonProps> = ({ setUploadedFile }: UploadFileButtonProps) => {
@@ -52,7 +55,8 @@ export const UploadFileButton: FC<UploadFileButtonProps> = ({ setUploadedFile }:
         disabled={isUploaded}
       />
       <button 
-        id="UploadFileButton" 
+        id="UploadFileButton"
+        className='uploadFileButton' 
         onClick={handleClick} 
         disabled={isUploaded}
       >

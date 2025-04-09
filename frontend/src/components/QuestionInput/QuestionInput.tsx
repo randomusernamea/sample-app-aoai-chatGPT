@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { FontIcon, Stack, TextField } from '@fluentui/react'
 import { SendRegular } from '@fluentui/react-icons'
 
@@ -9,21 +9,27 @@ import { ChatMessage } from '../../api'
 import { AppStateContext } from '../../state/AppProvider'
 import { resizeImage } from '../../utils/resizeImage'
 
+import { UploadFileButton } from "../../components/UploadFileButton/UploadFileButton";
+
 interface Props {
   onSend: (question: ChatMessage['content'], id?: string) => void
   disabled: boolean
   placeholder?: string
   clearOnSend?: boolean
   conversationId?: string
-  question: string;
-  setQuestion: (value: string) => void;
 }
 
-export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId, question, setQuestion }: Props ) => {
-  const [base64Image, setBase64Image] = useState<string | null>(null);
 
+
+
+
+export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId }: Props ) => {
+  const [base64Image, setBase64Image] = useState<string | null>(null);
+  const [question, setQuestion] = useState<string>('')
+  const [uploadedFile, setUploadedFile] = useState<string>('');
   const appStateContext = useContext(AppStateContext)
   const OYD_ENABLED = appStateContext?.state.frontendSettings?.oyd_enabled || false;
+  const fileButton = 'fileButton';
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -61,6 +67,10 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
       setQuestion('')
     }
   }
+
+  useEffect(()=> {
+    setQuestion(question + uploadedFile)
+  },[uploadedFile])
 
   const onEnterPress = (ev: React.KeyboardEvent<Element>) => {
     if (ev.key === 'Enter' && !ev.shiftKey && !(ev.nativeEvent?.isComposing === true)) {
@@ -119,6 +129,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         )}
       </div>
       <div className={styles.questionInputBottomBorder} />
+      <UploadFileButton setUploadedFile={setUploadedFile}></UploadFileButton>
     </Stack>
   )
 }
