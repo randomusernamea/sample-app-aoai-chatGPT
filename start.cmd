@@ -1,5 +1,20 @@
 @echo off
 
+
+set AUTH_CLIENT_SECRET=xT28Q~27vi0INgKTST4K.GZcH7FrqribgmmVBbBa
+SET AZURE_OPENAI_ENDPOINT=https://foundrylab0803548625.openai.azure.com/
+SET AZURE_OPENAI_KEY=Cj6Khthkf5cN5sj4i6ILy5fp2obCi9bMBjK4Cszc5WHZgafoNXylJQQJ99BDACMsfrFXJ3w3AAAAACOG2z59
+SET AZURE_OPENAI_MAX_TOKENS= 8000
+set AZURE_OPENAI_MODEL=gpt-4o-mini
+set AZURE_OPENAI_MODEL_NAME=gpt-4o-mini
+set AZURE_OPENAI_RESOURCE=foundrylab0803548625
+set AZURE_OPENAI_SYSTEM_MESSAGE=eres un agente que recibe consultas, pide un documento adjunto y cuando te pasan el texto del documento haces un resumen del mismo
+set AZURE_OPENAI_TEMPERATURE= 0.7
+SET AZURE_OPENAI_TOP_P= 0.95
+
+
+
+
 echo.
 echo Restoring backend python packages
 echo.

@@ -120,6 +120,8 @@ async def init_openai_client():
     azure_openai_client = None
     
     try:
+        print("OPEN AI ENDPOINT:", app_settings.azure_openai.endpoint)
+        print("OPEN AI RESOURCE:", app_settings.azure_openai.resource)
         # API version check
         if (
             app_settings.azure_openai.preview_api_version
@@ -176,7 +178,7 @@ async def init_openai_client():
             else:
                 logging.error(f"An error occurred while getting OpenAI Function Call tools metadata: {response.status_code}")
 
-        
+        print("Previo a crear instancia del cliente", endpoint)
         azure_openai_client = AsyncAzureOpenAI(
             api_version=app_settings.azure_openai.preview_api_version,
             api_key=aoai_api_key,
@@ -417,6 +419,7 @@ async def process_function_call(response):
     return None
 
 async def send_chat_request(request_body, request_headers):
+    print("Enter send chat request...")
     filtered_messages = []
     messages = request_body.get("messages", [])
     for message in messages:
@@ -428,8 +431,11 @@ async def send_chat_request(request_body, request_headers):
 
     try:
         azure_openai_client = await init_openai_client()
+        print("cliente creado")
         raw_response = await azure_openai_client.chat.completions.with_raw_response.create(**model_args)
+        print("llamada realizada")
         response = raw_response.parse()
+        print("Respuesta parseada")
         apim_request_id = raw_response.headers.get("apim-request-id") 
     except Exception as e:
         logging.exception("Exception in send_chat_request")
@@ -590,10 +596,21 @@ async def conversation():
 
 
 @bp.route("/convertFile", methods=["POST"])
-async def convertChat(file):
-    md = MarkItDown(docintel_endpoint="<document_intelligence_endpoint>")
-    result = md.convert(file)
-    return result
+async def convertChat():
+    import tempfile
+    print("llegue a la subida de markitdown")
+    uploaded_file = (await request.files)['file']
+    if uploaded_file.filename == '':
+            return {'error': 'No file selected'}, 400
+    print("Se subió el archivo:", uploaded_file.filename)
+    temp_file = "temp_" + uploaded_file.filename
+    await uploaded_file.save(temp_file)
+    print("temp file created:", temp_file)
+#    md = MarkItDown(docintel_endpoint="<document_intelligence_endpoint>")
+    md = MarkItDown() # Set to True to enable plugins
+    result = md.convert(temp_file)
+    print("temp file converted:", result.text_content)
+    return {'texto': result.text_content}, 200
 
 @bp.route("/frontend_settings", methods=["GET"])
 def get_frontend_settings():

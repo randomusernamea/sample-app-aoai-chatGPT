@@ -30,6 +30,7 @@ DOTENV_PATH = os.environ.get(
         ".env"
     )
 )
+print(DOTENV_PATH)
 MINIMUM_SUPPORTED_AZURE_OPENAI_PREVIEW_API_VERSION = "2024-05-01-preview"
 
 
@@ -101,6 +102,7 @@ class _AzureOpenAISettings(BaseSettings):
         env_ignore_empty=True
     )
     
+    print("1.0")
     model: str
     key: Optional[str] = None
     resource: Optional[str] = None
@@ -111,11 +113,13 @@ class _AzureOpenAISettings(BaseSettings):
     stream: bool = True
     stop_sequence: Optional[List[str]] = None
     seed: Optional[int] = None
+    print("2.0")
     choices_count: Optional[conint(ge=1, le=128)] = Field(default=1, serialization_alias="n")
     user: Optional[str] = None
     tools: Optional[conlist(_AzureOpenAITool, min_length=1)] = None
     tool_choice: Optional[str] = None
     logit_bias: Optional[dict] = None
+    print("3.0")
     presence_penalty: Optional[confloat(ge=-2.0, le=2.0)] = 0.0
     frequency_penalty: Optional[confloat(ge=-2.0, le=2.0)] = 0.0
     system_message: str = "You are an AI assistant that helps people find information."
@@ -123,12 +127,13 @@ class _AzureOpenAISettings(BaseSettings):
     embedding_endpoint: Optional[str] = None
     embedding_key: Optional[str] = None
     embedding_name: Optional[str] = None
+    print("4.0")
     function_call_azure_functions_enabled: Optional[bool] = False
     function_call_azure_functions_tools_key: Optional[str] = None
     function_call_azure_functions_tools_base_url: Optional[str] = None
     function_call_azure_functions_tool_key: Optional[str] = None
     function_call_azure_functions_tool_base_url: Optional[str] = None
-    
+    print("5.0")
     @field_validator('tools', mode='before')
     @classmethod
     def deserialize_tools(cls, tools_json_str: str) -> List[_AzureOpenAITool]:
@@ -171,7 +176,7 @@ class _AzureOpenAISettings(BaseSettings):
         elif self.resource:
             self.endpoint = f"https://{self.resource}.openai.azure.com"
             return Self
-        
+        print("Voy llegando al error")
         raise ValidationError("AZURE_OPENAI_ENDPOINT or AZURE_OPENAI_RESOURCE is required")
         
     def extract_embedding_dependency(self) -> Optional[dict]:
@@ -765,7 +770,9 @@ class _BaseSettings(BaseSettings):
 
 class _AppSettings(BaseModel):
     base_settings: _BaseSettings = _BaseSettings()
+    print("Previo a la lectura de openai")
     azure_openai: _AzureOpenAISettings = _AzureOpenAISettings()
+    print("Post lectura de openai")
     search: _SearchCommonSettings = _SearchCommonSettings()
     ui: Optional[_UiSettings] = _UiSettings()
     
