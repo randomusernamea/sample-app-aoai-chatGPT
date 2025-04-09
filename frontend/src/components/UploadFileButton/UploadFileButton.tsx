@@ -32,7 +32,7 @@ export const UploadFileButton: FC<UploadFileButtonProps> = ({ setUploadedFile }:
     })
       .then((response) => response.json())
       .then((data) => {
-        setUploadedFile(data);
+        setUploadedFile(data.texto);
         console.log('File uploaded successfully:', data);
       })
       .catch((error) => {
