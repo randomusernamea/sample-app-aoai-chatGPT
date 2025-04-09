@@ -11,7 +11,12 @@ set AZURE_OPENAI_RESOURCE=foundrylab0803548625
 set AZURE_OPENAI_SYSTEM_MESSAGE=eres un agente que recibe consultas, pide un documento adjunto y cuando te pasan el texto del documento haces un resumen del mismo
 set AZURE_OPENAI_TEMPERATURE= 0.7
 SET AZURE_OPENAI_TOP_P= 0.95
-
+SET UI_FAVICON=https://www.bcu.gub.uy/_layouts/15/images/favicon.ico
+SET UI_CHAT_DESCRIPTION=Asistente para consulta de documentos
+SET UI_CHAT_TITLE=Asistente revisor de documentos
+SET UI_TITLE=Asistente de documentos del bcu
+set UI_LOGO=https://www.bcu.gub.uy/Style Library/Design_2016/img/logo.png
+set UI_CHAT_LOGO=https://www.bcu.gub.uy/Style Library/Design_2016/img/logo.png
 
 
 
